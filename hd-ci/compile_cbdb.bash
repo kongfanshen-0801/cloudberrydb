@@ -114,8 +114,8 @@ main() {
 	cp -r ${ROOT_PATH}/${gpdb_dir_name} ${ROOT_PATH}/gpdb_src_tmp
 	popd
 
-	# release_rpm_internal_fts
-	release_rpm_external_fts $1
+	release_rpm_internal_fts 
+	# release_rpm_external_fts $1
 	pushd ${ROOT_PATH}
 	cp ${gpdb_dir_name}/cbdb-artifacts.txt .
 	rm -rf ${gpdb_dir_name} ~/rpmbuild ${OUTPUT_ARTIFACT_DIR:=gpdb_artifacts} 
