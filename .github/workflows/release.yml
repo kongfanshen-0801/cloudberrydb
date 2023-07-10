@@ -2,8 +2,7 @@ on:
   push:
     tags:
     - 'v*'
-env:
-  BUILD_TYPE: release
+
 jobs:
   build:
     runs-on: [self-hosted, default]
@@ -36,6 +35,7 @@ jobs:
       MAKE_TEST_COMMAND: "-k PGOPTIONS='-c optimizer=off' installcheck-world"
       TEST_OS: "centos"
       DUMP_DB: "true"
+      BUILD_TYPE: release
     steps:
       - uses: actions/checkout@v3
         with:
@@ -66,6 +66,7 @@ jobs:
       MAKE_TEST_COMMAND: "-k PGOPTIONS='-c optimizer=on' installcheck-world"
       TEST_OS: "centos"
       DUMP_DB: "true"
+      BUILD_TYPE: release
     steps:
       - uses: actions/checkout@v3
         with:
