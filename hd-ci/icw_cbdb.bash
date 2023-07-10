@@ -8,7 +8,7 @@ mkdir -p "${ROOT_PATH}/sqldump"
 
 compile_jansson() {
         # wget https://artifactory.hashdata.xyz/artifactory/utility/jansson-2.13.1.tar.gz && \
-        mv /opt/jansson-2.13.1.tar.gz . && \
+        cp /opt/jansson-2.13.1.tar.gz . && \
         tar -xvf jansson-2.13.1.tar.gz && \
         rm -rf jansson-2.13.1.tar.gz && \
         pushd .
@@ -32,7 +32,6 @@ function download_etcd() {
 	tar -xvf /opt/${ETCD_FILE_NAME}.tar.gz -C /opt
 	cp /opt/${ETCD_FILE_NAME}/etcd ${GREENPLUM_INSTALL_DIR}/bin
 	cp /opt/${ETCD_FILE_NAME}/etcdctl ${GREENPLUM_INSTALL_DIR}/bin
-	rm -rf /opt/${ETCD_FILE_NAME} /opt/${ETCD_FILE_NAME}.tar.gz
 	export ETCD_UNSUPPORTED_ARCH=arm64
 }
 
