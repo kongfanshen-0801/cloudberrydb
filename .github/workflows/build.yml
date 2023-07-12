@@ -1,9 +1,7 @@
 name: cbdb pipeline
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - ci_test
+  
 env:
   BUILD_TYPE: "debug"
   FTS_MODE: "internal_fts"
