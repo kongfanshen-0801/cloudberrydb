@@ -1,6 +1,5 @@
 name: cbdb pipeline
-on:
-  workflow_dispatch:
+on: [push]
   
 env:
   BUILD_TYPE: "debug"
