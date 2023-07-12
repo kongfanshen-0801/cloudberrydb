@@ -115,13 +115,13 @@ main() {
 	popd
 
 	release_rpm_internal_fts 
-	# release_rpm_external_fts $1
 	pushd ${ROOT_PATH}
 	cp ${gpdb_dir_name}/cbdb-artifacts.txt .
 	rm -rf ${gpdb_dir_name} ~/rpmbuild ${OUTPUT_ARTIFACT_DIR:=gpdb_artifacts} 
 	mv gpdb_src_tmp ${gpdb_dir_name}
 	mv cbdb-artifacts.txt ${gpdb_dir_name}
 	popd
+	release_rpm_external_fts $1
 
 
 }

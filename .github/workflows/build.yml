@@ -1,5 +1,11 @@
 name: cbdb pipeline
 on: [push]
+
+env:
+  BUILD_TYPE: "debug"
+  FTS_MODE: "internal_fts"
+
+
 permissions:
   id-token: write
   contents: read
@@ -45,7 +51,7 @@ jobs:
           cp -a gpdb_src/ /code
           cd /code
           echo $GITHUB_RUN_ID > gpdb_src/BUILD_NUMBER
-          gpdb_src/hd-ci/icw_cbdb.bash internal_fts
+          gpdb_src/hd-ci/icw_cbdb.bash $FTS_MODE
   icw-orca-test:
     needs: build
     runs-on: [self-hosted, example]
@@ -71,7 +77,7 @@ jobs:
           cp -a gpdb_src/ /code
           cd /code
           echo $GITHUB_RUN_ID > gpdb_src/BUILD_NUMBER
-          gpdb_src/hd-ci/icw_cbdb.bash internal_fts
+          gpdb_src/hd-ci/icw_cbdb.bash $FTS_MODE
 
 
 
