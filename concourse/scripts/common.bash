@@ -63,7 +63,7 @@ function download_jansson() {
 
     mkdir -p ${target_path}
     \cp -p /opt/jansson/lib/libjansson.so* ${target_path}
-    \cp -p /opt/jansson/include/jansson.h* /usr/include/
+    \cp -p /opt/jansson/include/jansson*.h /usr/include/
     rm -rf /opt/jansson 
     popd
 }
