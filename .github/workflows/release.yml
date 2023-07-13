@@ -3,6 +3,14 @@ on:
     tags:
     - 'v*'
 
+env:
+  BUILD_TYPE: "debug"
+  FTS_MODE: "internal_fts"
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+  GEN_DOCKER_TAG: true
+
+
 jobs:
   build:
     runs-on: [self-hosted, default]
@@ -11,7 +19,7 @@ jobs:
       - name: Run build script
         run: |
           echo $GITHUB_RUN_ID > BUILD_NUMBER
-          hd-ci/compile_cbdb.bash true
+          hd-ci/compile_cbdb.bash $GEN_DOCKER_TAG
       - uses: actions/upload-artifact@v3
         with:
           name: cbdb-variables

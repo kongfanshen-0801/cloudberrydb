@@ -18,7 +18,7 @@ jobs:
       - name: Run build script
         run: |
           echo $GITHUB_RUN_ID > BUILD_NUMBER
-          hd-ci/compile_cbdb.bash true
+          hd-ci/compile_cbdb.bash ${GEN_DOCKER_TAG}
       - uses: actions/upload-artifact@v3
         with:
           name: cbdb-variables
