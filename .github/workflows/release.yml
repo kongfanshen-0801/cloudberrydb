@@ -9,6 +9,8 @@ env:
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
   GEN_DOCKER_TAG: true
+  INSTALL_DIR: "/usr/local/cloudberry-db"
+  CLIENT_INSTALL_DIR: "/usr/local/cloudberry-clients"
 
 
 jobs:
