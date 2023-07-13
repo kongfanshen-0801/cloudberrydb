@@ -79,7 +79,7 @@ function package_create_rpm() {
 
 function release_image_k8s() {
 	rpm_package_path=$1
-	rpm_package_name = `ls /root/rpmbuild/RPMS/x86_64/cloudberry-db-*.rpm`
+	rpm_package_name=`ls /root/rpmbuild/RPMS/x86_64/cloudberry-db-*.rpm`
 	pushd ${SRC_PATH}/deploy/k8s
 	cp /root/rpmbuild/RPMS/x86_64/cloudberry-db-*.rpm .
 	systemctl daemon-reload
