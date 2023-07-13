@@ -85,7 +85,7 @@ function release_image_k8s() {
 	systemctl restart docker
 	tag_name=$(basename "${rpm_package_path}" ".rpm")-"${BUILD_NUMBER}"-"${BUILD_TYPE}"
 	tag_name=$(echo "${tag_name}" | sed 's/\+/-/g')
-	docker build . -t ${DOCKER_REPO}/docker/cbdb:${tag_name} --build-arg PACKAGE=${rpm_upload_file_name} --build-arg BUILD_TYPE=${BUILD_TYPE}
+	docker build . -t cbdb:${tag_name} --build-arg PACKAGE=${rpm_upload_file_name} --build-arg BUILD_TYPE=${BUILD_TYPE}
 	echo ${DOCKERHUB_PASSWORD} | docker login --username ${DOCKERHUB_USERNAME} --password-stdin
 	docker push cloudberrydb/cloudberrydb/cbdb:${tag_name}
 	popd
