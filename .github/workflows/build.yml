@@ -4,6 +4,8 @@ on: [push]
 env:
   BUILD_TYPE: "debug"
   FTS_MODE: "internal_fts"
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 permissions:
   id-token: write

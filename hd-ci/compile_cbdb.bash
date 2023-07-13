@@ -81,15 +81,13 @@ function release_image_k8s() {
 	rpm_package_path=$1
 	rpm_upload_file_name=$2
 	pushd ${SRC_PATH}/deploy/k8s
-	echo "{ \"insecure-registries\": [\"${DOCKER_REPO}\"] }" >> /etc/docker/daemon.json
-	echo "push new docker image to ${DOCKER_REPO}"
 	systemctl daemon-reload
 	systemctl restart docker
 	tag_name=$(basename "${rpm_package_path}" ".rpm")-"${BUILD_NUMBER}"-"${BUILD_TYPE}"
 	tag_name=$(echo "${tag_name}" | sed 's/\+/-/g')
 	docker build . -t ${DOCKER_REPO}/docker/cbdb:${tag_name} --build-arg PACKAGE=${rpm_upload_file_name} --build-arg BUILD_TYPE=${BUILD_TYPE}
-	echo ${ARTIFACTORY_PASSWORD} | docker login --username ${ARTIFACTORY_USERNAME} --password-stdin ${DOCKER_REPO}
-	docker push ${DOCKER_REPO}/docker/cbdb:${tag_name}
+	echo ${DOCKERHUB_PASSWORD} | docker login --username ${DOCKERHUB_USERNAME} --password-stdin
+	docker push cloudberrydb/cloudberrydb/cbdb:${tag_name}
 	popd
 }
 
