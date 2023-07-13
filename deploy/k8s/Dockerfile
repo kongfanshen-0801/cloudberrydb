@@ -14,18 +14,6 @@ RUN yum -y install R apr apr-devel apr-util automake autoconf bash bison bison-d
     rm -rf etcd-v3.3.25-linux-amd64.tar.gz && \
     rpm -ivh ${PACKAGE} && \
     rm ${PACKAGE} && \
-    wget https://cbdb-deps.s3.amazonaws.com/jansson-2.13.1.tar.gz && \
-    tar -xvf jansson-2.13.1.tar.gz && \
-    rm -rf jansson-2.13.1.tar.gz && \
-    cd jansson-2.13.1 && \
-    ./configure --prefix=/usr --disable-static && \
-    make && \
-    make install && \
-    cp -f /usr/lib/libjansson.so* /usr/lib64/ && \
-    wget -O /root/cmake-3.25.1-linux-x86_64.tar.gz https://cbdb-deps.s3.amazonaws.com/cmake-3.25.1-linux-x86_64.tar.gz && \
-    mkdir -p /root/cmake-3.25.1-linux-x86_64 && \
-    tar -xvf /root/cmake-3.25.1-linux-x86_64.tar.gz -C /root/cmake-3.25.1-linux-x86_64 && \
-    ln -s /root/cmake-3.25.1-linux-x86_64/cmake-3.25.1-linux-x86_64/bin/cmake /usr/bin/cmake && \
     chmod u+s /bin/ping && \
     mkdir -p /data0/data1/primary && \
     mkdir -p /data0/data2/primary && \

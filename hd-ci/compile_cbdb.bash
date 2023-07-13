@@ -79,13 +79,15 @@ function package_create_rpm() {
 
 function release_image_k8s() {
 	rpm_package_path=$1
+	rpm_package_name = `ls /root/rpmbuild/RPMS/x86_64/cloudberry-db-1.0.0-1.el7.x86_64.rpm`
 	pushd ${SRC_PATH}/deploy/k8s
 	cp /root/rpmbuild/RPMS/x86_64/cloudberry-db-1.0.0-1.el7.x86_64.rpm .
 	systemctl daemon-reload
 	systemctl restart docker
 	tag_name=$(basename "${rpm_package_path}" ".rpm")-"${BUILD_NUMBER}"-"${BUILD_TYPE}"
 	tag_name=$(echo "${tag_name}" | sed 's/\+/-/g')
-	docker build . -t cbdb:${tag_name} --build-arg PACKAGE=${rpm_package_path} --build-arg BUILD_TYPE=${BUILD_TYPE}
+	rpm = `ls /root/rpmbuild/RPMS/x86_64/cloudberry-db-1.0.0-1.el7.x86_64.rpm`
+	docker build . -t cbdb:${tag_name} --build-arg PACKAGE=${rpm_package_name} --build-arg BUILD_TYPE=${BUILD_TYPE}
 	echo ${DOCKERHUB_PASSWORD} | docker login --username ${DOCKERHUB_USERNAME} --password-stdin
 	docker push cloudberrydb/cloudberrydb/cbdb:${tag_name}
 	popd
