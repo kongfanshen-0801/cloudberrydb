@@ -6,6 +6,8 @@ env:
   FTS_MODE: "internal_fts"
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+  INSTALL_DIR: "/usr/local/cloudberry-db"
+  CLIENT_INSTALL_DIR: "/usr/local/cloudberry-clients"
 
 permissions:
   id-token: write
