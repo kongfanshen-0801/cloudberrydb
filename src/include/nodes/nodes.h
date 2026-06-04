@@ -1026,7 +1026,6 @@ typedef enum JoinType
 	JOIN_LASJ_NOTIN,			/* Left Anti Semi Join with Not-In semantics:
 									If any NULL values are produced by inner side,
 									return no join results. Otherwise, same as LASJ */
-	JOIN_RIGHT_SEMI,			/* 1 copy of each RHS row that has match(es) */
 	JOIN_RIGHT_ANTI,			/* 1 copy of each RHS row that has no match */
 
 	/*
@@ -1046,7 +1045,19 @@ typedef enum JoinType
 	 * moving the larger of the two relations.
 	 */
 	JOIN_DEDUP_SEMI,			/* inner join, LHS path must be made unique afterwards */
-	JOIN_DEDUP_SEMI_REVERSE		/* inner join, RHS path must be made unique afterwards */
+	JOIN_DEDUP_SEMI_REVERSE,	/* inner join, RHS path must be made unique afterwards */
+
+	/*
+	 * JOIN_RIGHT_SEMI (backported from upstream commit aa86129e1) is an
+	 * executor-supported join type, but it is deliberately placed at the END
+	 * of this enum rather than next to JOIN_RIGHT_ANTI where upstream puts it.
+	 * Inserting it in the middle would shift the integer values of the
+	 * GPDB-specific JOIN_DEDUP_SEMI/REVERSE (and JOIN_UNIQUE_*) codes, which
+	 * breaks value-dependent code elsewhere and corrupts MPP motion planning
+	 * (observed as a SIGSEGV during dispatch on semijoins over non-partitioned
+	 * loci).  Appending here keeps every pre-existing value stable.
+	 */
+	JOIN_RIGHT_SEMI				/* 1 copy of each RHS row that has match(es) */
 
 	/*
 	 * We might need additional join types someday.
