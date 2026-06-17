@@ -213,11 +213,16 @@ SELECT *
 --
 -- semijoin selectivity for <>
 --
+-- start_ignore
+-- GPDB: the exact plan shape depends on the optimizer (Postgres planner vs
+-- GPORCA) and on MPP motion placement, so the plan is ignored here; this
+-- query is retained from upstream only to exercise neqjoinsel's path.
 explain (costs off)
 select * from tenk1 a, tenk1 b
 where exists(select * from tenk1 c
              where b.twothousand = c.twothousand and b.fivethous <> c.fivethous)
       and a.tenthous = b.tenthous and a.tenthous < 5000;
+-- end_ignore
 
 
 --
@@ -742,6 +747,10 @@ set enable_nestloop to off;
 set enable_hashagg to off;
 
 -- ensure we get a hash right semi join with SubPlan in hash clauses
+-- start_ignore
+-- GPDB: the plan shape (and whether a right-semi join is chosen) depends on
+-- the optimizer and MPP motions, so the plan is ignored; correctness of the
+-- rescan match-flag reset is verified by the result of the query below.
 explain (costs off)
 select * from tbl_rs t1
 where (select a from tbl_rs t2
@@ -749,6 +758,7 @@ where (select a from tbl_rs t2
                      (select (b in (select b from tbl_rs t3)) as c from tbl_rs t4 where t4.a = 1) s
                      where c in (select t1.a = 1 from tbl_rs t5 union all select true))
        order by a limit 1) >= 0;
+-- end_ignore
 
 -- and check we get the expected results
 select * from tbl_rs t1
